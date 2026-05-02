@@ -70,7 +70,6 @@ public class AppointmentSchedulerUi {
 
     private static final Color PRIMARY = new Color(46, 125, 140);
 
-    private static final Color ACCENT = new Color(245, 171, 53);
 
     private static final Color BACKGROUND = new Color(245, 247, 250);
 
@@ -682,10 +681,10 @@ public class AppointmentSchedulerUi {
             if (appointment.getStatus() != AppointmentStatus.CONFIRMED) {
                 continue;
             }
-            if (!adminAuthService.isLoggedIn()) {
-                if (filteredCode.isEmpty() || !appointment.getAccessCode().equalsIgnoreCase(filteredCode)) {
-                    continue;
-                }
+               if (!adminAuthService.isLoggedIn() &&
+               (filteredCode.isEmpty() || !appointment.getAccessCode().equalsIgnoreCase(filteredCode))) {
+                continue;
+               }
             }
             appointmentsTableModel.addRow(new Object[]{
                 appointment.getId(),

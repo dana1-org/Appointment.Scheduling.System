@@ -672,32 +672,24 @@ public class AppointmentSchedulerUi {
         refreshNotifications();
     }
 
-    private void refreshAppointmentsTable() {
-        appointmentsTableModel.setRowCount(0);
-        List<Appointment> appointments = new ArrayList<>(appointmentService.viewAppointments());
-        appointments.sort(Comparator.comparing(a -> a.getTimeSlot().getStart()));
-        String filteredCode = appointmentsAccessCodeField.getText().trim().toUpperCase();
-        for (Appointment appointment : appointments) {
-            if (appointment.getStatus() != AppointmentStatus.CONFIRMED) {
-                continue;
-            }
-               if (!adminAuthService.isLoggedIn() &&
-               (filteredCode.isEmpty() || !appointment.getAccessCode().equalsIgnoreCase(filteredCode))) {
-                continue;
-               }
-            }
-            appointmentsTableModel.addRow(new Object[]{
-                appointment.getId(),
-                appointment.getUser().getName() + " (" + appointment.getUser().getId() + ")",
-                appointment.getType(),
-                DATE_FORMAT.format(appointment.getTimeSlot().getStart()),
-                DATE_FORMAT.format(appointment.getTimeSlot().getEnd()),
-                appointment.getParticipants(),
-                appointment.getStatus()
-            });
-        }
+   for (Appointment appointment : appointments) {
+    if (appointment.getStatus() != AppointmentStatus.CONFIRMED) {
+        continue;
     }
-
+    if (!adminAuthService.isLoggedIn() &&
+            (filteredCode.isEmpty() || !appointment.getAccessCode().equalsIgnoreCase(filteredCode))) {
+        continue;
+    }
+    appointmentsTableModel.addRow(new Object[]{
+        appointment.getId(),
+        appointment.getUser().getName() + " (" + appointment.getUser().getId() + ")",
+        appointment.getType(),
+        DATE_FORMAT.format(appointment.getTimeSlot().getStart()),
+        DATE_FORMAT.format(appointment.getTimeSlot().getEnd()),
+        appointment.getParticipants(),
+        appointment.getStatus()
+    });
+}
     private void refreshAvailableSlots() {
         availableSlotsModel.removeAllElements();
         List<String> lines = new ArrayList<>();

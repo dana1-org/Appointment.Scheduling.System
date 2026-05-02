@@ -60,7 +60,7 @@ public class App {
                 slots.get(0).getEnd(),
                 1);
         Appointment appointment = appointmentService.bookAppointment(request);
-        LOGGER.info("Booked appointment status: " + appointment.getStatus());
-        LOGGER.info("Available slots after booking: " + appointmentService.viewAvailableSlots().size());
+       LOGGER.info(() -> "Booked appointment status: " + appointment.getStatus());
+       LOGGER.info(() -> "Available slots after booking: " + appointmentService.viewAvailableSlots().size());
     }
 }

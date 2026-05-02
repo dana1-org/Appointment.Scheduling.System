@@ -62,7 +62,7 @@ public class App {
                 1);
 
         Appointment appointment = appointmentService.bookAppointment(request);
-        System.out.println("Booked appointment status: " + appointment.getStatus());
-        System.out.println("Available slots after booking: " + appointmentService.viewAvailableSlots().size());
+       LOGGER.info("Booked appointment status: " + appointment.getStatus());
+LOGGER.info("Available slots after booking: " + appointmentService.viewAvailableSlots().size());
     }
 }
